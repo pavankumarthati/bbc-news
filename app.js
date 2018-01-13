@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var appServer = require(__dirname + '/utils/server');
+var port = process.env.PORT || 3222;
 
 var app = express();
 var router = express.Router();
@@ -22,6 +23,6 @@ router.get('/', function (req, res) {
 router.post('/api/news', appServer.addNews);
 router.get('/api/news', appServer.getNews);
 
-app.listen(3222, function () {
+app.listen(port, function () {
   console.log("I'm started");
 });
