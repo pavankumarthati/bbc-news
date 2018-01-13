@@ -1,14 +1,14 @@
 var MongoDb = require('mongodb');
 var MongoClient = MongoDb.MongoClient;
-var connection_string = "mongodb://localhost:27017/bbcnews";
+var connection_string = "mongodb://pavankumar:74ls138@ds251737.mlab.com:51737/heroku_pj4s3c40";
 
 var db;
-MongoClient.connect(connection_string, function (err, db1) {
+MongoClient.connect(connection_string, function (err, database) {
   if (err) {
     console.log("connection not established");
     return;
   }
-  db = db1;
+  db = database;
   console.log("connection established successfully");
 });
 
