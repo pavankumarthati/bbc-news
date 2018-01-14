@@ -1,10 +1,11 @@
 var mongoUtil = require(__dirname + '/mongoUtil');
+var ObjectID = require('mongodb').ObjectID
 var MAX_LIMIT = 10;
 
 var appServer = {
 
   getNews: function (req, res) {
-    console.log('received request with params ' + req.query);
+    console.log('received request with params ' + JSON.stringify(req.query));
     var id = req.query.id || undefined;
     var max_id = req.query.max_id || undefined;
     var limit = req.query.limit || MAX_LIMIT;
@@ -12,6 +13,13 @@ var appServer = {
     var query = {};
     var sortBy = {"_id": -1};
 
+    if (id !== undefined) {
+      id = new ObjectID(req.query.id);
+    }
+
+    if (max_id !== undefined) {
+      max_id = new ObjectID(req.query.max_id);
+    }
     if (id !== undefined && max_id !== undefined) {
      query = {
        $and: [{"_id" : {$gte: id}}, {"_id": {$lte: max_id}}]
@@ -40,7 +48,7 @@ var appServer = {
       res.status = 400;
       res.send({"msg": "body empty"});
     } else {
-      console.log('received input body ' + req.body);
+      console.log('received input body ' + JSON.stringify(req.body));
       var title = req.body.title || undefined;
       var thumbnail = req.body.thumbnail || undefined;
       var id = req.body.id || undefined;
