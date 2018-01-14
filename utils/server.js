@@ -4,6 +4,7 @@ var MAX_LIMIT = 10;
 var appServer = {
 
   getNews: function (req, res) {
+    console.log('received request with params ' + req.query);
     var id = req.query.id || undefined;
     var max_id = req.query.max_id || undefined;
     var limit = req.query.limit || MAX_LIMIT;
@@ -39,17 +40,28 @@ var appServer = {
       res.status = 400;
       res.send({"msg": "body empty"});
     } else {
+      console.log('received input body ' + req.body);
       var title = req.body.title || undefined;
       var thumbnail = req.body.thumbnail || undefined;
+      var id = req.body.id || undefined;
+      var rssCreatedAt = req.body.rss_created_at || undefined;
+      var rssUpdatedAt = req.body.rss_updated_at || undefined;
+      var summary  = req.body.summary || undefined;
+      var comments = req.body.comments || undefined;
       var description = req.body.description || undefined;
       var link = req.body.link || undefined;
-      var pubDate = req.body.pubDate || undefined;
+      var date = req.body.date || undefined;
       var payload = {
+        "id": id,
         "title": title,
         "thumbnail": thumbnail,
+        "rss_created_at": rssCreatedAt,
+        "rss_updated_at": rssUpdatedAt,
+        "summary": summary,
+        "comments": comments,
+        "date": date,
         "description": description,
-        "link": link,
-        "pubDate": pubDate
+        "link": link
       };
 
       mongoUtil.addNews(payload, function (err, results) {
