@@ -8,7 +8,7 @@ var appServer = {
     console.log('received request with params ' + JSON.stringify(req.query));
     var id = req.query.id || undefined;
     var max_id = req.query.max_id || undefined;
-    var limit = req.query.limit || MAX_LIMIT;
+    var limit = parseInt(req.query.limit) || MAX_LIMIT;
 
     var query = {};
     var sortBy = {"_id": -1};
