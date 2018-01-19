@@ -22,12 +22,12 @@ var appServer = {
     }
     if (id !== undefined && max_id !== undefined) {
      query = {
-       $and: [{"_id" : {$gte: id}}, {"_id": {$lte: max_id}}]
+       $and: [{"_id" : {$gt: id}}, {"_id": {$lt: max_id}}]
      };
     } else if (id !== undefined) {
-      query = {"_id" : {$gte: id}};
+      query = {"_id" : {$gt: id}};
     } else if (max_id !== undefined) {
-      query = {"_id": {$lte: max_id}};
+      query = {"_id": {$lt: max_id}};
     }
 
     mongoUtil.getNews(query, limit, {}, sortBy, function (error, results) {
